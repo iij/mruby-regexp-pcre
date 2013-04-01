@@ -3,19 +3,6 @@ mruby-regexp-pcre
 
 Regexp for mruby (pcre)
 
-## Dependent library
- * libpcre
-   * you must have a pre-installed.
-
- * Example
-   * CentOS
-
-> # yum install pcre pcre-devel
-
-   * Ubuntu
-
-> $ sudo apt-get install libpcre3 libpcre3-dev
-
 ## License
 
 Copyright (c) 2013 Internet Initiative Japan Inc.
@@ -44,3 +31,13 @@ DEALINGS IN THE SOFTWARE.
 ### MatchData
 
 ### String
+
+## Dependent library
+ * libpcre
+   * you must have a pre-installed.
+
+ * Example
+   * CentOS
+     * # yum install pcre pcre-devel
+   * Ubuntu
+     * $ sudo apt-get install libpcre3 libpcre3-dev
