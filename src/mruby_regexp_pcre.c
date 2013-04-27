@@ -325,9 +325,9 @@ mrb_mruby_regexp_pcre_gem_init(mrb_state *mrb)
   re = mrb_define_class(mrb, "Regexp", mrb->object_class);
   MRB_SET_INSTANCE_TT(re, MRB_TT_DATA);
 
-  mrb_define_method(mrb, re, "initialize", regexp_pcre_initialize, ARGS_REQ(1) | ARGS_OPT(2));
-  mrb_define_method(mrb, re, "match", regexp_pcre_match, ARGS_REQ(1));
-  mrb_define_method(mrb, re, "==", regexp_equal, ARGS_REQ(1));
+  mrb_define_method(mrb, re, "initialize", regexp_pcre_initialize, MRB_ARGS_REQ(1) | MRB_ARGS_OPT(2));
+  mrb_define_method(mrb, re, "match", regexp_pcre_match, MRB_ARGS_REQ(1));
+  mrb_define_method(mrb, re, "==", regexp_equal, MRB_ARGS_REQ(1));
 
   mrb_define_const(mrb, re, "IGNORECASE", mrb_fixnum_value(MRUBY_REGEXP_IGNORECASE));
   mrb_define_const(mrb, re, "EXTENDED", mrb_fixnum_value(MRUBY_REGEXP_EXTENDED));
@@ -336,11 +336,11 @@ mrb_mruby_regexp_pcre_gem_init(mrb_state *mrb)
   md = mrb_define_class(mrb, "MatchData", mrb->object_class);
   MRB_SET_INSTANCE_TT(md, MRB_TT_DATA);
 
-  mrb_define_method(mrb, md, "initialize", mrb_matchdata_init, ARGS_REQ(1));
-  mrb_define_method(mrb, md, "initialize_copy", mrb_matchdata_init_copy, ARGS_REQ(1));
-  mrb_define_method(mrb, md, "begin", mrb_matchdata_begin, ARGS_REQ(1));
-  mrb_define_method(mrb, md, "end", mrb_matchdata_end, ARGS_REQ(1));
-  mrb_define_method(mrb, md, "length", mrb_matchdata_length, ARGS_NONE());
+  mrb_define_method(mrb, md, "initialize", mrb_matchdata_init, MRB_ARGS_REQ(1));
+  mrb_define_method(mrb, md, "initialize_copy", mrb_matchdata_init_copy, MRB_ARGS_REQ(1));
+  mrb_define_method(mrb, md, "begin", mrb_matchdata_begin, MRB_ARGS_REQ(1));
+  mrb_define_method(mrb, md, "end", mrb_matchdata_end, MRB_ARGS_REQ(1));
+  mrb_define_method(mrb, md, "length", mrb_matchdata_length, MRB_ARGS_NONE());
 }
 
 void
