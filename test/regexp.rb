@@ -165,46 +165,46 @@ if Object.const_defined?(:Regexp)
     re3 == re4
   end
 
-  assert('Regexp Literal (2)') do
-    re1 = /a\nb/
-    re2 = /a\\nb/
-    re3 = /a\/b/
-    re4 = /a"b/
+  #assert('Regexp Literal (2)') do
+  #  re1 = /a\nb/
+  #  re2 = /a\\nb/
+  #  re3 = /a\/b/
+  #  re4 = /a"b/
 
-    re1.source == "a\\nb" and
-    re2.source == "a\\\\nb" and
-    re3.source == "a/b"   and
-    re4.source == 'a"b'
-  end
+  #  re1.source == "a\\nb" and
+  #  re2.source == "a\\\\nb" and
+  #  re3.source == "a/b"   and
+  #  re4.source == 'a"b'
+  #end
 
-  assert('Regexp Literal (3)') do
-    re1 = /a\sb/
-    re2 = /a\tb/
-    re3 = /a\:b/
-    re4 = /a\?b/
+  #assert('Regexp Literal (3)') do
+  #  re1 = /a\sb/
+  #  re2 = /a\tb/
+  #  re3 = /a\:b/
+  #  re4 = /a\?b/
 
-    if false
-    puts
-    puts re1, re1.source, re1.source == "a\\sb"
-    puts re2, re2.source, re2.source == "a\\tb"
-    puts re3, re3.source, re3.source == "a\\:b"
-    puts re4, re4.source, re4.source == "a\\?b"
-    end
+  #  if false
+  #  puts
+  #  puts re1, re1.source, re1.source == "a\\sb"
+  #  puts re2, re2.source, re2.source == "a\\tb"
+  #  puts re3, re3.source, re3.source == "a\\:b"
+  #  puts re4, re4.source, re4.source == "a\\?b"
+  #  end
 
-    re1.source == "a\\sb" and
-    re2.source == "a\\tb" and
-    re3.source == "a\\:b"   and
-    re4.source == 'a\\?b'
-  end
+  #  re1.source == "a\\sb" and
+  #  re2.source == "a\\tb" and
+  #  re3.source == "a\\:b"   and
+  #  re4.source == 'a\\?b'
+  #end
 
-  assert('Regexp Literal (4)') do
-    re1 = /\A\w\W\s\S\D\b\B\Z/
-    str = "\\A\\w\\W\\s\\S\\D\\b\\B\\Z"
-    re2 = Regexp.compile(str)
+  #assert('Regexp Literal (4)') do
+  #  re1 = /\A\w\W\s\S\D\b\B\Z/
+  #  str = "\\A\\w\\W\\s\\S\\D\\b\\B\\Z"
+  #  re2 = Regexp.compile(str)
 
-    re1.source == str and
-    re1 == re2
-  end
+  #  re1.source == str and
+  #  re1 == re2
+  #end
 
   assert('Regexp Literal (5): escape charactor') do
     (/a\nb/ =~ "a\nb") == 0 and
