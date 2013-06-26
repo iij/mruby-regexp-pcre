@@ -240,7 +240,7 @@ class String
     last_match = nil
     while m = args[0].match(s)
       break if !m || m.size == 0
-      return r if m.end(0) == 0
+      return ret if m.end(0) == 0
 
       val = (m.size == 1 ? m[0] : m.captures)
       s = m.post_match
