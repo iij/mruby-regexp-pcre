@@ -134,6 +134,7 @@ regexp_pcre_match(mrb_state *mrb, mrb_value self)
   struct RClass *c;
   mrb_value md, str;
   mrb_int i, pos;
+  pcre_extra extra;
   struct mrb_regexp_pcre *reg;
 
   reg = (struct mrb_regexp_pcre *)mrb_get_datatype(mrb, self, &mrb_regexp_type);
@@ -152,7 +153,10 @@ regexp_pcre_match(mrb_state *mrb, mrb_value self)
   }
   matchlen = ccount + 1;
   match = mrb_malloc(mrb, sizeof(int) * matchlen * 3);
-  rc = pcre_exec(reg->re, NULL, RSTRING_PTR(str), RSTRING_LEN(str), pos, 0, match, matchlen * 3);
+
+  extra.flags = PCRE_EXTRA_MATCH_LIMIT_RECURSION;
+  extra.match_limit_recursion = 1000;
+  rc = pcre_exec(reg->re, &extra, RSTRING_PTR(str), RSTRING_LEN(str), pos, 0, match, matchlen * 3);
   if (rc < 0) {
     mrb_free(mrb, match);
     return mrb_nil_value();
