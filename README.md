@@ -1,7 +1,29 @@
 mruby-regexp-pcre
 =================
 
-Regexp for mruby (pcre)
+"mruby-regexp-pcre" is a regular expression module for mruby.
+It provides Regexp and MatchData classes.
+
+
+## Requirements
+
+none (libpcre is bundled).
+
+
+## Example
+
+```Ruby
+line = "#hoge"
+/^#.*/ =~ line
+
+csv = "a, b, c"
+csv.split /,\s*/
+
+kvs = "key: value"
+m = /(\w+)\s*:\s*(\w*)/.match(kvs)
+key, value = m[1], m[2]
+```
+
 
 ## License
 
@@ -24,20 +46,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING 
 FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 DEALINGS IN THE SOFTWARE.
-
-## Implement methods
-### Regexp
-
-### MatchData
-
-### String
-
-## Dependent library
- * libpcre
-   * you must have a pre-installed.
-
- * Example
-   * CentOS
-     * # yum install pcre pcre-devel
-   * Ubuntu
-     * $ sudo apt-get install libpcre3 libpcre3-dev
