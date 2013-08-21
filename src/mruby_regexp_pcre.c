@@ -27,9 +27,12 @@ mrb_regexp_free(mrb_state *mrb, void *ptr)
 {
   struct mrb_regexp_pcre *mrb_re = ptr;
 
-  if (mrb_re->re)
-    pcre_free(mrb_re->re);
-  mrb_free(mrb, mrb_re);
+  if (mrb_re != NULL) {
+    if (mrb_re->re != NULL) {
+      pcre_free(mrb_re->re);
+    }
+    mrb_free(mrb, mrb_re);
+  }
 }
 
 static void
@@ -37,9 +40,12 @@ mrb_matchdata_free(mrb_state *mrb, void *ptr)
 {
   struct mrb_matchdata *mrb_md = ptr;
 
-  if (mrb_md->ovector != NULL)
-    mrb_free(mrb, mrb_md->ovector);
-  mrb_free(mrb, mrb_md);
+  if (mrb_md != NULL) {
+    if (mrb_md->ovector != NULL) {
+      mrb_free(mrb, mrb_md->ovector);
+    }
+    mrb_free(mrb, mrb_md);
+  }
 }
 
 static struct mrb_data_type mrb_regexp_type = { "Regexp", mrb_regexp_free };
@@ -90,14 +96,20 @@ regexp_pcre_initialize(mrb_state *mrb, mrb_value self)
   struct mrb_regexp_pcre *reg = NULL;
   mrb_value source, opt = mrb_nil_value();
 
+  reg = (struct mrb_regexp_pcre *)DATA_PTR(self);
+  if (reg) {
+    mrb_regexp_free(mrb, reg);
+  }
+  DATA_TYPE(self) = &mrb_regexp_type;
+  DATA_PTR(self) = NULL;
+
   mrb_get_args(mrb, "S|o", &source, &opt);
 
   reg = mrb_malloc(mrb, sizeof(struct mrb_regexp_pcre));
-  memset(reg, 0, sizeof(struct mrb_regexp_pcre));
+  reg->re = NULL;
   DATA_PTR(self) = reg;
-  DATA_TYPE(self) = &mrb_regexp_type;
-  coptions = mrb_mruby_to_pcre_options(opt);
 
+  coptions = mrb_mruby_to_pcre_options(opt);
   source = mrb_str_new(mrb, RSTRING_PTR(source), RSTRING_LEN(source));
   reg->re = pcre_compile(RSTRING_PTR(source), coptions, &errstr, &erroff, NULL);
   if (reg->re == NULL) {
@@ -225,17 +237,17 @@ mrb_matchdata_init(mrb_state *mrb, mrb_value self)
 {
   struct mrb_matchdata *mrb_md;
 
-  mrb_md = (struct mrb_matchdata *)mrb_get_datatype(mrb, self, &mrb_matchdata_type);
+  mrb_md = (struct mrb_matchdata *)DATA_PTR(self);
   if (mrb_md) {
     mrb_matchdata_free(mrb, mrb_md);
   }
+  DATA_TYPE(self) = &mrb_matchdata_type;
+  DATA_PTR(self) = NULL;
 
   mrb_md = (struct mrb_matchdata *)mrb_malloc(mrb, sizeof(*mrb_md));
   mrb_md->ovector = NULL;
   mrb_md->length = -1;
-
   DATA_PTR(self) = mrb_md;
-  DATA_TYPE(self) = &mrb_matchdata_type;
 
   return self;
 }
