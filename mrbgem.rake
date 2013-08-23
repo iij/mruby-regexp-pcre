@@ -27,10 +27,6 @@ MRuby::Gem::Specification.new('mruby-regexp-pcre') do |spec|
   spec.cc.include_paths << "#{pcre_src}"
   spec.cc.flags << '-DHAVE_CONFIG_H'
 
-  FileUtils.cp("#{pcre_src}/config.h.generic", "#{pcre_src}/config.h") unless File.exists?("#{pcre_src}/config.h")
-  FileUtils.cp("#{pcre_src}/pcre.h.generic", "#{pcre_src}/pcre.h") unless File.exists?("#{pcre_src}/pcre.h")
-  FileUtils.cp("#{pcre_src}/pcre_chartables.c.dist", "#{pcre_src}/pcre_chartables.c") unless File.exists?("#{pcre_src}/pcre_chartables.c")
-
   spec.objs += %W(
     #{pcre_src}/pcre_byte_order.c
     #{pcre_src}/pcre_compile.c
@@ -54,4 +50,11 @@ MRuby::Gem::Specification.new('mruby-regexp-pcre') do |spec|
     #{pcre_src}/pcre_xclass.c
     #{pcre_src}/pcre_chartables.c
   ).map { |f| f.relative_path_from(dir).pathmap("#{build_dir}/%X.o") }
+
+  desc "generate configuration files for mruby-regexp-pcre"
+  task :regexp_pcre_config do
+    FileUtils.cp "#{pcre_src}/config.h.generic", "#{pcre_src}/config.h"
+    FileUtils.cp "#{pcre_src}/pcre.h.generic", "#{pcre_src}/pcre.h"
+    FileUtils.cp "#{pcre_src}/pcre_chartables.c.dist", "#{pcre_src}/pcre_chartables.c"
+  end
 end
