@@ -24,6 +24,22 @@ m = /(\w+)\s*:\s*(\w*)/.match(kvs)
 key, value = m[1], m[2]
 ```
 
+## Test
+If you have mruby source code and imported mruby-regexp-pcre as an mrbgem,
+just run "rake test" to execute test scripts in ``test`` directory:
+```
+% cd mruby
+% rake test
+```
+
+Or run ``run_test.rb`` to check out mruby source code into a temporary directory,
+and run tests on it:
+```
+% cd mruby-regexp-pcre
+% ruby run_test.rb test
+% rm -rf tmp
+```
+
 
 ## License
 
