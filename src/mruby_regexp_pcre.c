@@ -95,6 +95,8 @@ regexp_pcre_initialize(mrb_state *mrb, mrb_value self)
   const char *errstr = NULL;
   struct mrb_regexp_pcre *reg = NULL;
   mrb_value source, opt = mrb_nil_value();
+  unsigned char *name_table, *tabptr;
+  int i, namecount, name_entry_size;
 
   reg = (struct mrb_regexp_pcre *)DATA_PTR(self);
   if (reg) {
@@ -118,14 +120,11 @@ regexp_pcre_initialize(mrb_state *mrb, mrb_value self)
   mrb_iv_set(mrb, self, mrb_intern_lit(mrb, "@source"), source);
   mrb_iv_set(mrb, self, mrb_intern_lit(mrb, "@options"), mrb_fixnum_value(mrb_pcre_to_mruby_options(coptions)));
 
-  unsigned char *name_table;
-  int i, namecount, name_entry_size;
-
   pcre_fullinfo(reg->re, NULL, PCRE_INFO_NAMECOUNT, &namecount);
   if (namecount > 0) {
     pcre_fullinfo(reg->re, NULL, PCRE_INFO_NAMETABLE, &name_table);
     pcre_fullinfo(reg->re, NULL, PCRE_INFO_NAMEENTRYSIZE, &name_entry_size);
-    unsigned char *tabptr = name_table;
+    tabptr = name_table;
     for (i = 0; i < namecount; i++) {
       int n = (tabptr[0] << 8) | tabptr[1];
       mrb_funcall(mrb, self, "name_push", 2, mrb_str_new(mrb, (const char *)(tabptr + 2), strlen((const char *)tabptr + 2)), mrb_fixnum_value(n));
