@@ -183,7 +183,7 @@ class String
         self[nth, len] = '' if result
         Regexp.last_match = lm
       else
-        self[nth, len] = '' if result
+        self[nth, len] = '' if result && nth != self.size
       end
     end
 
