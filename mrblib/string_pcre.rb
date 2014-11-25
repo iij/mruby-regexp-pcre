@@ -337,6 +337,6 @@ class String
   end
 
   def splice(start , count, val)
-    self.replace(self[0...start] + val + self[(start + count)..-1])
+    self.replace(self[0...start] + val + self[(start + count)..-1].to_s)
   end
 end
