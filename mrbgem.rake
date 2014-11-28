@@ -26,6 +26,7 @@ MRuby::Gem::Specification.new('mruby-regexp-pcre') do |spec|
   pcre_src = "#{spec.dir}/#{pcre_dirname}"
   spec.cc.include_paths << "#{pcre_src}"
   spec.cc.flags << '-DHAVE_CONFIG_H'
+  spec.cc.flags << '-DPCRE_STATIC' if /mingw|mswin/ =~ RUBY_PLATFORM
 
   spec.objs += %W(
     #{pcre_src}/pcre_byte_order.c
@@ -49,7 +50,7 @@ MRuby::Gem::Specification.new('mruby-regexp-pcre') do |spec|
     #{pcre_src}/pcre_version.c
     #{pcre_src}/pcre_xclass.c
     #{pcre_src}/pcre_chartables.c
-  ).map { |f| f.relative_path_from(dir).pathmap("#{build_dir}/%X.o") }
+  ).map { |f| f.relative_path_from(dir).pathmap("#{build_dir}/%X#{spec.exts.object}" ) }
 
   desc "generate configuration files for mruby-regexp-pcre"
   task :regexp_pcre_config do
