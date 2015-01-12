@@ -6,7 +6,7 @@ class String
     end
 
     begin
-      m = args[0].match(self)
+      m = String(args[0].match(self))
     rescue
       return self
     end
