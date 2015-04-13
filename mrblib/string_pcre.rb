@@ -10,7 +10,7 @@ class String
     rescue
       return self
     end
-    return self if m.size == 0
+    return self if !m || m.size == 0
     r = ''
     r += m.pre_match
     r += blk ? blk.call(m[0]) : args[1]

@@ -153,10 +153,13 @@ assert('String#sub with Regexp', '15.2.10.5.36') do
   result2 = 'abcabc'.sub(re, '<<\&>>')
   re = Regexp.compile('x+(b+)')
   result3 = 'xbbxbb'.sub(re, 'X<<\1>>')
+  re = Regexp.compile('foo')
+  result4 = 'bar'.sub(re, 'zee')
 
   result1 == "abc!!g" and
   result2 == "a<<b>>cabc" and
-  result3 == "X<<bb>>xbb"
+  result3 == "X<<bb>>xbb" and
+  result4 == 'bar'
 end
 
 # TODO ATM broken assert('String#sub!', '15.2.10.5.37') do
@@ -169,8 +172,13 @@ assert('String#sub! with Regexp', '15.2.10.5.37') do
   re = Regexp.compile('in.')
   result2.sub!(re, '<<\&>>')
 
+  result3 = 'bar'
+  re = Regexp.compile('foo')
+  result3.sub!(re, 'zee')
+
   result1 == "Str!!-String" and
-  result2 == "Str<<ing>>-String"
+  result2 == "Str<<ing>>-String" and
+  result3 == 'bar'
 end
 
 assert('String#sub', '15.2.10.5.36') do
