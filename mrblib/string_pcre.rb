@@ -1,4 +1,15 @@
 class String
+  alias_method :old_index, :index
+  def index(pat, offs=0)
+    return old_index(pat, offs) unless pat.is_a? Regexp
+    if offs < 0
+      offs += self.size
+      return nil if offs < 0
+    end
+    m = pat.match(self, offs)
+    m ? m.begin(0) : nil
+  end
+
   alias_method :old_sub, :sub
   def sub(*args, &blk)
     if args[0].class == String

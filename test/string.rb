@@ -50,9 +50,11 @@ assert('String#gsub!', '15.2.10.5.19') do
   a == 'aBcaBc' && b == 'aBcaBc' 
 end
 
-assert('String#index', '15.2.10.5.22') do
-  'abc'.index('a') == 0 and 'abc'.index('d') == nil and
-    'abcabc'.index('a', 1) == 3
+assert('String#index') do
+  assert_equal 0,   'abc'.index(/a/)
+  assert_equal nil, 'abc'.index(/d/)
+  assert_equal 3,   'abcabc'.index(/a/, 1)
+  assert_equal 4,   'abcabc'.index(/b/, -4)
 end
 
 # TODO Broken ATM assert('String#match', '15.2.10.5.27') do
