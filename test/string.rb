@@ -10,17 +10,15 @@ end
 
 assert('String#gsub with Regexp', '15.2.10.5.18') do
   re = Regexp.compile('def')
-  result1 = 'abcdefg'.gsub(re, '!!')
-  re = Regexp.compile('b')
-  result2 = 'abcabc'.gsub(re, '<<\&>>')
-  re = Regexp.compile('x+(b+)')
-  result3 = 'xxbbxbb'.gsub(re, 'X<<\1>>')
-  result4 = '2.5'.gsub('.', ',')
+  assert_equal "abc!!g", 'abcdefg'.gsub(re, '!!')
 
-  result1 == "abc!!g" and
-  result2 == "a<<b>>ca<<b>>c" and
-  result3 == "X<<bb>>X<<bb>>" and
-  result4 == "2,5"
+  re = Regexp.compile('b')
+  assert_equal "a<<b>>ca<<b>>c", 'abcabc'.gsub(re, '<<\&>>')
+
+  re = Regexp.compile('x+(b+)')
+  assert_equal "X<<bb>>X<<bb>>", 'xxbbxbb'.gsub(re, 'X<<\1>>')
+
+  assert_equal "2,5", '2.5'.gsub('.', ',')
 end
 
 assert('String#gsub! with Regexp', '15.2.10.5.19') do
@@ -48,6 +46,11 @@ assert('String#gsub!', '15.2.10.5.19') do
   b.gsub!('b') { |w| w.capitalize }
 
   a == 'aBcaBc' && b == 'aBcaBc' 
+end
+
+assert('String#gsub regression #13') do
+  assert_equal "abc",  "abc".gsub(/^\s*/, "")
+  assert_equal "xaxxcx", "abc".gsub(/b?/, "x")
 end
 
 assert('String#index') do

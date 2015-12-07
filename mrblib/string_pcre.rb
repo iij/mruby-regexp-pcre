@@ -36,23 +36,27 @@ class String
       return blk ? old_gsub(*args) { |x| blk.call(x) } : old_gsub(*args)
     end
 
-    s = self
     r = ""
-    while true
-      begin
-        m = args[0].match(s)
-      rescue
-        break
-      end
-
+    i = 0
+    while i <= length
+      m = args[0].match(self[i..-1]) rescue break
       break if !m || m.size == 0
-      return r if m.end(0) == 0
+
       r += m.pre_match
-      r += blk ? blk.call(m[0]) : args[1]
-      r.to_sub_replacement!(m)
-      s = m.post_match
+      s = blk ? blk.call(m[0]) : args[1]
+      s.to_sub_replacement!(m)
+      r += s
+
+      if i == length
+        break
+      elsif m.end(0) > 0
+        i += m.end(0)
+      else
+        r += self[i]
+        i += 1
+      end
     end
-    r += s
+    r += self[i..-1]
     r
   end
 
