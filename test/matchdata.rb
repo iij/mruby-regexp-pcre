@@ -9,6 +9,13 @@ assert('MatchData#[]', '15.2.16.3.1') do
   m[4] == nil and m[-2] == "bar"
 end
 
+# named captures
+assert('MatchData#[]') do
+  m = /(?<test>a)(b)(?:c)(?<test2>d)/.match('abcd')
+  assert_equal 'a', m['test']
+  assert_equal 'd', m[:test2]
+end
+
 assert('MatchData#begin', '15.2.16.3.2') do
   m = /(foo)(bar)(BAZ)?/.match("foobarbaz")
   m.begin(0) == 0 and m.begin(1) == 0 and m.begin(2) == 3 and m.begin(3) == nil
