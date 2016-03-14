@@ -151,20 +151,32 @@ class MatchData
   attr_reader :string
 
   def [](n)
-    # XXX: if n is_a? Range
-    # XXX: when we have 2nd argument...
-    if n < 0
-      n += self.length
-      return nil if n < 0
-    elsif n >= self.length
-      return nil
-    end
-    b = self.begin(n)
-    e = self.end(n)
-    if b and e
-      @string[b, e-b]
+    if n.kind_of?(String) || n.kind_of?(Symbol)
+      indexes = regexp.named_captures[n.to_s]
+      if indexes
+        self[indexes.last]
+      else
+        nil
+      end
+    elsif n.respond_to?(:to_i)
+      # XXX: if n is_a? Range
+      # XXX: when we have 2nd argument...
+      n = n.to_i
+      if n < 0
+        n += self.length
+        return nil if n < 0
+      elsif n >= self.length
+        return nil
+      end
+      b = self.begin(n)
+      e = self.end(n)
+      if b and e
+        @string[b, e-b]
+      else
+        nil
+      end
     else
-      nil
+      raise TypeError.new("No implicit converstion of #{n.class} into integer")
     end
   end
 
