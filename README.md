@@ -1,7 +1,8 @@
 mruby-regexp-pcre
 =================
 
-"mruby-regexp-pcre" is a regular expression module for mruby.
+"mruby-regexp-pcre" is a regular expression module for mruby, based on
+[http://pcre.org PCRE].
 It provides Regexp and MatchData classes.
 
 
@@ -39,6 +40,17 @@ and run tests on it:
 % ruby run_test.rb test
 % rm -rf tmp
 ```
+
+## Alternatives
+If mruby-regexp-pcre does not meet your requirements, try mruby-onig-regexp.
+It consumes much more memory but has better compatibility with MRI.
+
+- https://github.com/mattn/mruby-onig-regexp (Onigumo/Oniguruma)
+
+Other alternatives:
+
+- https://github.com/mattn/mruby-pcre-regexp (PCRE)
+- https://github.com/masamitsu-murase/mruby-hs-regexp (Henry Spencer's)
 
 
 ## License
