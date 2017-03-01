@@ -174,34 +174,14 @@ class String
   end
 
   alias_method :slice, :[]
-  # XXX: alias_method :old_slice!, :slice!
+  alias_method :old_slice!, :slice!
   def slice!(*args)
-    if args.size < 2
-      result = slice(*args)
-      nth = args[0]
+    return old_slice!(*args) unless args[0].class == Regexp
 
-      if nth.class == Regexp
-        lm = Regexp.last_match
-        self[nth] = '' if result
-        Regexp.last_match = lm
-      else
-        self[nth] = '' if result
-      end
-    else
-      result = slice(*args)
-
-      nth = args[0]
-      len = args[1]
-
-      if nth.class == Regexp
-        lm = Regexp.last_match
-        self[nth, len] = '' if result
-        Regexp.last_match = lm
-      else
-        self[nth, len] = '' if result && nth != self.size
-      end
-    end
-
+    result = slice(*args)
+    lm = Regexp.last_match
+    self[*args] = '' if result
+    Regexp.last_match = lm
     result
   end
 

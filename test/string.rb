@@ -113,7 +113,7 @@ assert('String#slice', '15.2.10.5.34') do
     a3 == 'bc' and b3 == nil
 end
 
-assert('String#slice!', '15.2.10.5.X') do
+assert('String#slice!') do
   x1 = 'abc'
   x2 = x1.clone
   x3 = x1.clone
