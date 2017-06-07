@@ -16,11 +16,7 @@ class String
       return blk ? old_sub(*args) { |x| blk.call(x) } : old_sub(*args)
     end
 
-    begin
-      m = args[0].match(self)
-    rescue
-      return self
-    end
+    m = args[0].match(self)
     return self if !m || m.size == 0
     r = ''
     r += m.pre_match
@@ -39,7 +35,7 @@ class String
     r = ""
     i = 0
     while i <= length
-      m = args[0].match(self[i..-1]) rescue break
+      m = args[0].match(self[i..-1])
       break if !m || m.size == 0
 
       r += m.pre_match
