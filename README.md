@@ -25,6 +25,12 @@ m = /(\w+)\s*:\s*(\w*)/.match(kvs)
 key, value = m[1], m[2]
 ```
 
+## Difference between PCRE and MRI Regexp
+|    | MRI (CRuby) | PCRE |
+|:---|:------------|:-----|
+| \h | A hexdigit character (`[0-9a-fA-F]`) | a horizontal white space character
+
+
 ## Test
 If you have mruby source code and imported mruby-regexp-pcre as an mrbgem,
 just run "rake test" to execute test scripts in ``test`` directory:
