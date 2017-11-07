@@ -2,7 +2,7 @@ mruby-regexp-pcre
 =================
 
 "mruby-regexp-pcre" is a regular expression module for mruby, based on
-[http://pcre.org PCRE].
+[PCRE](http://pcre.org).
 It provides Regexp and MatchData classes.
 
 
