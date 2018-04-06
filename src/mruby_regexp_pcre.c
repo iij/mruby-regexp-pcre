@@ -55,21 +55,20 @@ static struct mrb_data_type mrb_matchdata_type = { "MatchData", mrb_matchdata_fr
 static int
 mrb_mruby_to_pcre_options(mrb_value options)
 {
-  int coptions = PCRE_DOTALL;
+  int coptions = PCRE_MULTILINE;
 
-  if (mrb_nil_p(options)) {
-    coptions = 0;
-  } else if (mrb_fixnum_p(options)) {
-    int nopt;
-    nopt = mrb_fixnum(options);
+  if (mrb_fixnum_p(options)) {
+    int nopt = mrb_fixnum(options);
     if (nopt & MRUBY_REGEXP_IGNORECASE) coptions |= PCRE_CASELESS;
+    if (nopt & MRUBY_REGEXP_MULTILINE)  coptions |= PCRE_DOTALL;
     if (nopt & MRUBY_REGEXP_EXTENDED)   coptions |= PCRE_EXTENDED;
-    if (nopt & MRUBY_REGEXP_MULTILINE)  coptions |= PCRE_MULTILINE;
   } else if (mrb_string_p(options)) {
-    if (strchr(RSTRING_PTR(options), 'i')) coptions |= PCRE_CASELESS;
-    if (strchr(RSTRING_PTR(options), 'x')) coptions |= PCRE_EXTENDED;
-    if (strchr(RSTRING_PTR(options), 'm')) coptions |= PCRE_MULTILINE;
-  } else if (mrb_type(options) == MRB_TT_TRUE) {
+    const char *sptr = RSTRING_PTR(options);
+    size_t slen = RSTRING_LEN(options);
+    if (memchr(sptr, 'i', slen)) coptions |= PCRE_CASELESS;
+    if (memchr(sptr, 'm', slen)) coptions |= PCRE_DOTALL;
+    if (memchr(sptr, 'x', slen)) coptions |= PCRE_EXTENDED;
+  } else if (mrb_test(options)) { // other "true" values
     coptions |= PCRE_CASELESS;
   }
 
@@ -82,8 +81,8 @@ mrb_pcre_to_mruby_options(int coptions)
   int options = 0;
 
   if (coptions & PCRE_CASELESS)  options |= MRUBY_REGEXP_IGNORECASE;
+  if (coptions & PCRE_DOTALL)    options |= MRUBY_REGEXP_MULTILINE;
   if (coptions & PCRE_EXTENDED)  options |= MRUBY_REGEXP_EXTENDED;
-  if (coptions & PCRE_MULTILINE) options |= MRUBY_REGEXP_MULTILINE;
 
   return options;
 }

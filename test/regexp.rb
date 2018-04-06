@@ -243,17 +243,13 @@ assert('Regexp Literal (6): matching test') do
 end
 
 assert('Regexp option "i"', '15.2.15.1') do
-  (/abcdef/i =~ "ABCDEF") == 0 and
-  (/abcdef/i =~ "AAAAAA") == nil
+  assert_true (/abc/i =~ "AbC") == 0
+  assert_true (/abc/ =~ "AbC") == nil
 end
 
 assert('Regexp option "m"', '15.2.15.1') do
-  msg = "Random Line 1\n"
-  msg += "Random Line 2\n"
-  msg += "From: person@example.com\n"
-  msg += "Subject: This is the subject line\n"
-
-  (/(From:.*Subject.*?)/m =~ msg) != nil
+  assert_true (/a.b/m =~ "a\nb") == 0
+  assert_true (/a.b/ =~ "a\nb") == nil
 end
 
 assert('Regexp option "x"', '15.2.15.1') do
