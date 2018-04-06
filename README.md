@@ -61,6 +61,10 @@ Other alternatives:
 
 ## License
 
+**Note: If you build your mruby with bundled PCRE (default), read the [pcre/LINCENCE](pcre/LICENCE) file carefully.**
+
+This software (except for "pcre" directory) is distributed under the license terms below.
+
 Copyright (c) 2013 Internet Initiative Japan Inc.
 
 Permission is hereby granted, free of charge, to any person obtaining a 
