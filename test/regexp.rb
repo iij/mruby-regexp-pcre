@@ -93,8 +93,10 @@ assert('Regexp#casefold?', '15.2.15.7.4') do
   b.casefold? == false
 end
 
-#assert('Regexp#initialize', '15.2.15.7.5') do
-#end
+assert('Regexp#initialize', '15.2.15.7.5') do
+  assert_equal "abc", Regexp.new(/abc/).source
+  assert_equal "abc", Regexp.new("abc").source
+end
 
 #assert('Regexp#initialize_copy', '15.2.15.7.6') do
 #end

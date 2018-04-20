@@ -97,14 +97,19 @@ regexp_pcre_initialize(mrb_state *mrb, mrb_value self)
   unsigned char *name_table, *tabptr;
   int i, namecount, name_entry_size;
 
+  mrb_get_args(mrb, "o|o", &source, &opt);
+  if (mrb_obj_is_kind_of(mrb, source, mrb_class_get(mrb, "Regexp"))) {
+    opt    = mrb_iv_get(mrb, source, mrb_intern_lit(mrb, "@options"));
+    source = mrb_iv_get(mrb, source, mrb_intern_lit(mrb, "@source"));
+  }
+  source = mrb_string_type(mrb, source);
+
   reg = (struct mrb_regexp_pcre *)DATA_PTR(self);
   if (reg) {
     mrb_regexp_free(mrb, reg);
   }
   DATA_TYPE(self) = &mrb_regexp_type;
   DATA_PTR(self) = NULL;
-
-  mrb_get_args(mrb, "S|o", &source, &opt);
 
   reg = mrb_malloc(mrb, sizeof(struct mrb_regexp_pcre));
   reg->re = NULL;
