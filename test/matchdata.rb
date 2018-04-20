@@ -5,8 +5,14 @@ end
 
 assert('MatchData#[]', '15.2.16.3.1') do
   m = /(foo)(bar)(BAZ)?/.match("foobarbaz")
-  m[0] == "foobar" and m[1] == "foo" and m[2] == "bar" and m[3] == nil and
-  m[4] == nil and m[-2] == "bar"
+  assert_equal "foobar", m[0]
+  assert_equal "foo",    m[1]
+  assert_equal "bar",    m[2]
+  assert_equal nil,      m[3]
+  assert_equal "bar",    m[-2]
+
+  assert_equal ["foobar", "foo", "bar"], m[0..2]
+  assert_equal ["foobar", "foo"], m[0, 2]
 end
 
 # named captures

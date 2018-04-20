@@ -150,7 +150,11 @@ class MatchData
   attr_reader :regexp
   attr_reader :string
 
-  def [](n)
+  def [](n,m=nil)
+    if m
+      return self.to_a[n,m]
+    end
+
     if n.kind_of?(String) || n.kind_of?(Symbol)
       indexes = regexp.named_captures[n.to_s]
       if indexes
@@ -158,9 +162,9 @@ class MatchData
       else
         nil
       end
+    elsif n.kind_of?(Range)
+      return self.to_a[n]
     elsif n.respond_to?(:to_i)
-      # XXX: if n is_a? Range
-      # XXX: when we have 2nd argument...
       n = n.to_i
       if n < 0
         n += self.length
