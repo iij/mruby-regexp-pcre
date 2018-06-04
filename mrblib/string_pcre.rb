@@ -28,7 +28,7 @@ class String
 
   alias_method :old_gsub, :gsub
   def gsub(*args, &blk)
-    if args[0].class.to_s == 'String'
+    if args[0] == nil or args[0].class.to_s == 'String'
       return blk ? old_gsub(*args) { |x| blk.call(x) } : old_gsub(*args)
     end
 

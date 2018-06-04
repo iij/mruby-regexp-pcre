@@ -9,6 +9,20 @@ assert('String#[]', '15.2.10.5.6') do
 end
 
 assert('String#gsub with Regexp', '15.2.10.5.18') do
+  assert_raise(ArgumentError) do
+    "abc".gsub()
+  end
+
+  # Despite violation ISO Ruby 15.2.10.5.18 (a), MRI does not raise an
+  # ArgumentError.
+  #assert_raise(ArgumentError) do
+  #  "abc".gsub("a")
+  #end
+
+  assert_raise(ArgumentError) do
+    "abc".gsub("a", "x", "0")
+  end
+
   re = Regexp.compile('def')
   assert_equal "abc!!g", 'abcdefg'.gsub(re, '!!')
 
