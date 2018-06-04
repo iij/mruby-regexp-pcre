@@ -20,8 +20,12 @@ class String
     return self if !m || m.size == 0
     r = ''
     r += m.pre_match
-    r += blk ? blk.call(m[0]) : args[1]
-    r.to_sub_replacement!(m)
+    if blk
+      s = blk.call(m[0])
+    else
+      s = args[1]._replace_back_reference(m)
+    end
+    r += s
     r += m.post_match
     r
   end
@@ -39,8 +43,11 @@ class String
       break if !m || m.size == 0
 
       r += m.pre_match
-      s = blk ? blk.call(m[0]) : args[1]
-      s.to_sub_replacement!(m)
+      if blk
+        s = blk.call(m[0])
+      else
+        s = args[1]._replace_back_reference(m)
+      end
       r += s
 
       if i == length
@@ -182,7 +189,7 @@ class String
   end
 
   # private
-  def to_sub_replacement!(match)
+  def _replace_back_reference(match)
     result = ""
     index = 0
     while index < self.length
@@ -219,7 +226,7 @@ class String
       end
       index += 1
     end
-    self.replace(result)
+    result
   end
 
   alias_method :old_scan, :scan

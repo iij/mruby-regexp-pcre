@@ -67,6 +67,11 @@ assert('String#gsub regression #13') do
   assert_equal "xaxxcx", "abc".gsub(/b?/, "x")
 end
 
+assert('#19 - should not substitute back-reference in str block returns') do
+  assert_equal "\\1bc", "abc".gsub(/(a)/) { |m| "\\1" }
+  assert_equal "\\1bc", "abc".sub(/(a)/) { |m| "\\1" }
+end
+
 assert('String#index') do
   assert_equal 0,   'abc'.index(/a/)
   assert_equal nil, 'abc'.index(/d/)
