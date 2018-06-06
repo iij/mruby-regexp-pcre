@@ -233,15 +233,14 @@ class String
   def scan(*args, &blk)
     return old_scan(*args) if args[0].class == String
 
-    s = self
+    i = 0
     ret = []
-    last_match = nil
-    while m = args[0].match(s)
+    while m = args[0].match(self, i)
       break if !m || m.size == 0
-      return ret if m.end(0) == 0
+      return ret if m.end(0) == i
 
       val = (m.size == 1 ? m[0] : m.captures)
-      s = m.post_match
+      i = m.end(0)
 
       if blk
         blk.call(val)

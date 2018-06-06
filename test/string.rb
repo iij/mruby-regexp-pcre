@@ -102,6 +102,12 @@ assert('String#scan', '15.2.10.5.32') do
   result4 == [["ba", "r"], ["ba", "z"], ["ba", "r"], ["ba", "z"]]
 end
 
+assert('String#scan #20') do
+  x = nil
+  "abc".scan(/./) { x = $` }
+  assert_equal "ab", x
+end
+
 assert('String#slice', '15.2.10.5.34') do
   # length of args is 1
   a = 'abc'.slice(0)
