@@ -236,11 +236,12 @@ class String
     i = 0
     ret = []
     while m = args[0].match(self, i)
-      break if !m || m.size == 0
-      return ret if m.end(0) == i
-
       val = (m.size == 1 ? m[0] : m.captures)
-      i = m.end(0)
+      if m.end(0) > i
+        i = m.end(0)
+      else
+        i += 1
+      end
 
       if blk
         blk.call(val)

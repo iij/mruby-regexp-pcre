@@ -108,6 +108,12 @@ assert('String#scan #20') do
   assert_equal "ab", x
 end
 
+assert('String#scan #21') do
+  assert_equal ["a", "b", "c", ""], "abc".scan(/.?/)
+  assert_equal ["abc", ""], "abc".scan(/.*/)
+  assert_equal ["", "", "", ""], "abc".scan(//)
+end
+
 assert('String#slice', '15.2.10.5.34') do
   # length of args is 1
   a = 'abc'.slice(0)
