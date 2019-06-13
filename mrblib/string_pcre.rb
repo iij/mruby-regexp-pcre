@@ -229,9 +229,11 @@ class String
     result
   end
 
-  alias_method :old_scan, :scan
   def scan(*args, &blk)
-    return old_scan(*args) if args[0].class == String
+    if args[0].class == String
+      # String#scan has never been implemented.
+      raise NotImplementedError, "String#scan is not available"
+    end
 
     i = 0
     ret = []
