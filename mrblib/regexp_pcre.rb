@@ -180,7 +180,7 @@ class MatchData
         nil
       end
     else
-      raise TypeError.new("No implicit converstion of #{n.class} into integer")
+      raise TypeError.new("No implicit conversion of #{n.class} into integer")
     end
   end
 
