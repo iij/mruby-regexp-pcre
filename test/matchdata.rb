@@ -1,3 +1,11 @@
+unless nil.respond_to? :to_i
+  class NilClass
+    def to_i
+      0
+    end
+  end
+end
+
 assert('MatchData', '15.2.16.2') do
   MatchData.class == Class and
   MatchData.superclass == Object
