@@ -71,6 +71,10 @@ class String
     end
   end
 
+  def match(re, &block)
+    Regexp.new(re).match(self, &block)
+  end
+
   alias_method :old_split, :split
   def split(*args, &blk)
     return [] if self.empty?
