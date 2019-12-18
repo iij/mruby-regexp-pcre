@@ -63,7 +63,7 @@ Other alternatives:
 
 ## License
 
-**Note: If you build your mruby with bundled PCRE (default), read the [pcre/LINCENCE](pcre/LICENCE) file carefully.**
+**Note: If you build your mruby with bundled PCRE (default), read the [pcre/LICENCE](pcre/LICENCE) file carefully.**
 
 This software (except for "pcre" directory) is distributed under the license terms below.
 
