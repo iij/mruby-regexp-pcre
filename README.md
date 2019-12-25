@@ -1,7 +1,6 @@
 mruby-regexp-pcre
 =================
-[![Build Status](https://travis-ci.org/iij/mruby-regexp-pcre.svg?branch=master)](https://travis-ci.org/iij/mruby-regexp-pcre)
-
+![](https://github.com/iij/mruby-regexp-pcre/workflows/Build%20and%20Test/badge.svg)
 
 "mruby-regexp-pcre" is a regular expression module for mruby, based on
 [PCRE](http://pcre.org).
