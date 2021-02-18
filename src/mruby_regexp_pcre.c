@@ -148,7 +148,8 @@ regexp_pcre_match(mrb_state *mrb, mrb_value self)
   int *match;
   struct RClass *c;
   mrb_value md, str;
-  mrb_int i, pos;
+  int i;
+  mrb_int pos;
   pcre_extra extra;
   struct mrb_regexp_pcre *reg;
 
