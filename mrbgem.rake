@@ -28,7 +28,7 @@ MRuby::Gem::Specification.new('mruby-regexp-pcre') do |spec|
   pcre_src = "#{spec.dir}/#{pcre_dirname}"
   spec.cc.include_paths << "#{pcre_src}"
   spec.cc.flags << '-DHAVE_CONFIG_H'
-  spec.cc.flags << '-DPCRE_STATIC' if /mingw|mswin/ =~ RUBY_PLATFORM
+  spec.cc.flags << '-DPCRE_STATIC' if for_windows?
 
   spec.objs += %W(
     #{pcre_src}/pcre_byte_order.c
